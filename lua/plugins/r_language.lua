@@ -6,6 +6,11 @@ return {
     -- build = ":call RBuild()",
     lazy = false,
     opts = {
+      compl_data = {
+        -- max_depth = 3, -- These are defaults
+        -- max_size = 1000000, -- These are defaults
+        max_time = 200, -- Default is 100ms
+      },
       -- hook = {
       --   after_config = function()
       --     -- Optional: automatically start R when opening an .R file
