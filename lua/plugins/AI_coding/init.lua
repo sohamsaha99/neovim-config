@@ -1,5 +1,5 @@
 local function load_openai_key()
-  local keyfile = vim.fn.expand("~/openai.key")
+  local keyfile = vim.fn.expand("~/.passwords/openai.key")
   if vim.fn.filereadable(keyfile) == 1 then
     local lines = vim.fn.readfile(keyfile)
     if #lines > 0 and lines[1] ~= "" then

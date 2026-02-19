@@ -65,12 +65,12 @@ If a plugin is not working and cannot be installed, I suggest you to look at the
 ## Setup AI coding plugin (`codecompanion.nvim`) on a new machine
 The config in [lua/plugins/AI_coding/init.lua](./lua/plugins/AI_coding/init.lua) enables OpenAI API, Codex, and Gemini CLI adapters, with Codex set as default.
 
-1. Create an OpenAI API key file in your home directory:
+1. Create an OpenAI API key file in `~/.passwords`:
 ```shell
-printf '%s\n' 'YOUR_OPENAI_API_KEY' > ~/openai.key
-chmod 600 ~/openai.key
+printf '%s\n' 'YOUR_OPENAI_API_KEY' > ~/.passwords/openai.key
+chmod 600 ~/.passwords/openai.key
 ```
-The plugin reads the first line of `~/openai.key` into `OPENAI_API_KEY`.
+The plugin reads the first line of `~/.passwords/openai.key` into `OPENAI_API_KEY`.
 
 2. Install `codex-acp` from `zed-industries` github and place it in `~/.local/bin`:
 ```shell
