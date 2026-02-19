@@ -63,7 +63,7 @@ I am using the `JetBrainsMono Nerd Font Mono` font.
 If a plugin is not working and cannot be installed, I suggest you to look at the specific repository to find the dependencies.
 
 ## Setup AI coding plugin (`codecompanion.nvim`) on a new machine
-The config in [lua/plugins/AI_coding/init.lua](./lua/plugins/AI_coding/init.lua) enables both OpenAI API and Codex adapters, with Codex set as default.
+The config in [lua/plugins/AI_coding/init.lua](./lua/plugins/AI_coding/init.lua) enables OpenAI API, Codex, and Gemini CLI adapters, with Codex set as default.
 
 1. Create an OpenAI API key file in your home directory:
 ```shell
@@ -79,7 +79,20 @@ mkdir -p ~/.local/bin
 chmod +x ~/.local/bin/codex-acp
 ```
 
-3. Restart Neovim and run `:CodeCompanion` commands.
+3. Install Gemini CLI globally:
+```shell
+sudo npm install -g @google/gemini-cli
+npm config get prefix
+```
+This setup installs to `/usr/local` (the prefix can be verified with `npm config get prefix`).
+
+To uninstall:
+```shell
+npm uninstall -g @google/gemini-cli
+```
+If needed, run the uninstall command with `sudo`.
+
+4. Restart Neovim and run `:CodeCompanion` commands.
 
 ## Install treesitter parsers for `R.nvim`
 The recommended way is to simply use the `nvim-treesitter` plugin.
@@ -95,4 +108,3 @@ This will give you a `libtree-sitter-r.so` file.
 Rename it to `r.so` and put it under `nvim/parser` directory.
 Additionally, grab the `.scm` files under `queries/` directory and put them in `nvim/queries/r/`.
 Then you can remove the directory `tree-sitter-r`.
-
