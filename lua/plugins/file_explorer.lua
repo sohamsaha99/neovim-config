@@ -7,7 +7,7 @@ return {
     },
     keys = {
       -- Launch file browser
-      { "<leader>fb", ":Telescope file_browser<CR>", desc = "Open file browser" }
+      { "<leader>fb", "<cmd>Telescope file_browser<CR>", desc = "Open file browser", silent = true }
     },
   },
   {
@@ -18,10 +18,11 @@ return {
       "nvim-tree/nvim-web-devicons",
     },
     keys = {
-      { "<leader>e", ":NvimTreeToggle<CR>", desc = "Toggle file tree" },
+      { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "Toggle file tree", silent = true },
     },
     config = function()
       require("nvim-tree").setup {}
     end,
   },
 }
+

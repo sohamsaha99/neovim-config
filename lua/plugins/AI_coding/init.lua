@@ -20,6 +20,7 @@ return {
     require("codecompanion").setup({
       adapters = {
         http = {
+        -- Set up OpenAI API
           openai = function()
             return require("codecompanion.adapters").extend("openai", {
               env = {
@@ -33,18 +34,37 @@ return {
             })
           end,
         },
+        -- Set up Codex CLI Integration with codex-acp (executable in ~/.local/bin)
+        acp = {
+          codex = function()
+            return require("codecompanion.adapters").extend("codex", {
+              defaults = {
+                auth_method = "chatgpt", -- "openai-api-key"|"codex-api-key"|"chatgpt"
+              },
+            })
+          end,
+        },
       },
-      strategies = {
+      interactions = {
         chat = {
-          adapter = "openai",
+          adapter = "codex", -- "openai"
         },
         inline = {
-          adapter = "openai",
+          adapter = "codex", -- "openai"
         },
         cmd = {
-          adapter = "openai",
+          adapter = "codex", -- "openai"
         }
       },
     })
+
+    -- set up keymaps
+    vim.keymap.set({ "n", "v" }, "<leader>aa", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true, desc = "(A)I (A)ctions" })
+    vim.keymap.set({ "n", "v" }, "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true, desc = "(A)I (C)hat" })
+    vim.keymap.set("v", "<leader>as", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true, desc = "(A)I (S)end to chat" })
+
+    -- Expand 'cc' into 'CodeCompanion' in the command line
+    vim.cmd([[cab cc CodeCompanion]])
   end
 }
+

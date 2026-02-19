@@ -62,6 +62,25 @@ I am using the `JetBrainsMono Nerd Font Mono` font.
 - Local LaTeX installation required for the VimTeX plugin.
 If a plugin is not working and cannot be installed, I suggest you to look at the specific repository to find the dependencies.
 
+## Setup AI coding plugin (`codecompanion.nvim`) on a new machine
+The config in [lua/plugins/AI_coding/init.lua](./lua/plugins/AI_coding/init.lua) enables both OpenAI API and Codex adapters, with Codex set as default.
+
+1. Create an OpenAI API key file in your home directory:
+```shell
+printf '%s\n' 'YOUR_OPENAI_API_KEY' > ~/openai.key
+chmod 600 ~/openai.key
+```
+The plugin reads the first line of `~/openai.key` into `OPENAI_API_KEY`.
+
+2. Install `codex-acp` from `zed-industries` github and place it in `~/.local/bin`:
+```shell
+mkdir -p ~/.local/bin
+# Download the codex-acp binary for your OS/arch and save it as ~/.local/bin/codex-acp
+chmod +x ~/.local/bin/codex-acp
+```
+
+3. Restart Neovim and run `:CodeCompanion` commands.
+
 ## Install treesitter parsers for `R.nvim`
 The recommended way is to simply use the `nvim-treesitter` plugin.
 However, there are some conflict issues if both `nvim-treesitter` and `VimTeX` plugins are enabled.
@@ -76,3 +95,4 @@ This will give you a `libtree-sitter-r.so` file.
 Rename it to `r.so` and put it under `nvim/parser` directory.
 Additionally, grab the `.scm` files under `queries/` directory and put them in `nvim/queries/r/`.
 Then you can remove the directory `tree-sitter-r`.
+
