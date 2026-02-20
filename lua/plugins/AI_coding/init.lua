@@ -77,6 +77,51 @@ return {
       vim.cmd([[cab cc CodeCompanion]])
     end,
   },
+  {
+    "folke/sidekick.nvim",
+    opts = {
+      nes = {
+        enabled = false,
+      },
+      cli = {
+        picker = "telescope",
+        tools = {
+          gemini = { cmd = { "gemini" } },
+          codex = { cmd = { "codex" } },
+        },
+      },
+    },
+    keys = {
+      {
+        "<leader>ac",
+        function()
+          require("sidekick.cli").show({ name = "codex" })
+        end,
+        desc = "(A)I (C)odex CLI",
+      },
+      {
+        "<leader>ag",
+        function()
+          require("sidekick.cli").show({ name = "gemini" })
+        end,
+        desc = "(A)I (G)emini CLI",
+      },
+      {
+        "<leader>at",
+        function()
+          require("sidekick.cli").toggle()
+        end,
+        desc = "(A)I Window (T)oggle",
+      },
+      {
+        "<leader>aq",
+        function()
+          require("sidekick.cli").close()
+        end,
+        desc = "(A)I Window (Q)uit",
+      },
+    },
+  },
 
   -- {
   --   "yetone/avante.nvim",

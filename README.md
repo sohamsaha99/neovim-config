@@ -62,8 +62,12 @@ I am using the `JetBrainsMono Nerd Font Mono` font.
 - Local LaTeX installation required for the VimTeX plugin.
 If a plugin is not working and cannot be installed, I suggest you to look at the specific repository to find the dependencies.
 
-## Setup AI coding plugin (`codecompanion.nvim`) on a new machine
-The config in [lua/plugins/AI_coding/init.lua](./lua/plugins/AI_coding/init.lua) enables OpenAI API, Codex, and Gemini CLI adapters, with Codex set as default.
+## Setup AI coding plugins on a new machine
+The AI config now includes:
+- [lua/plugins/AI_coding/init.lua](./lua/plugins/AI_coding/init.lua), which configures both `codecompanion.nvim` and `sidekick.nvim` (Codex CLI + Gemini CLI).
+`codecompanion.nvim` is setup to work with OpenAI API in http mode, Codex and Gemini CLI in ACP mode.
+
+In `sidekick.nvim`, NES is explicitly disabled to keep the setup minimal.
 
 1. Create an OpenAI API key file in `~/.passwords`:
 ```shell
@@ -72,14 +76,19 @@ chmod 600 ~/.passwords/openai.key
 ```
 The plugin reads the first line of `~/.passwords/openai.key` into `OPENAI_API_KEY`.
 
-2. Install `codex-acp` from `zed-industries` github and place it in `~/.local/bin`:
+2. Install `codex-acp` from `zed-industries` github and place it in `~/.local/bin` (needed by `codecompanion.nvim`):
 ```shell
 mkdir -p ~/.local/bin
 # Download the codex-acp binary for your OS/arch and save it as ~/.local/bin/codex-acp
 chmod +x ~/.local/bin/codex-acp
 ```
 
-3. Install Gemini CLI globally:
+3. Install Codex CLI globally (needed by `sidekick.nvim`):
+```shell
+npm install -g @openai/codex
+```
+
+4. Install Gemini CLI globally (needed by `sidekick.nvim`):
 ```shell
 sudo npm install -g @google/gemini-cli
 npm config get prefix
@@ -92,7 +101,13 @@ npm uninstall -g @google/gemini-cli
 ```
 If needed, run the uninstall command with `sudo`.
 
-4. Restart Neovim and run `:CodeCompanion` commands.
+5. Restart Neovim and sync plugins (`:Lazy sync`).
+
+6. Sidekick keymaps:
+- `<leader>ax` opens Sidekick with Codex CLI.
+- `<leader>ag` opens Sidekick with Gemini CLI.
+- `<leader>at` toggles Sidekick CLI window.
+- `<leader>aq` quits Sidekick CLI window.
 
 ## Install treesitter parsers for `R.nvim`
 The recommended way is to simply use the `nvim-treesitter` plugin.
