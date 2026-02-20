@@ -12,10 +12,16 @@ end
 return {
   {
     "olimorris/codecompanion.nvim",
+    lazy = true,
     opts = {},
     dependencies = {
       "nvim-lua/plenary.nvim",
       -- "nvim-treesitter/nvim-treesitter",
+    },
+    keys = {
+      { "<leader>ca", "<cmd>CodeCompanionActions<cr>", mode = { "n", "v" }, desc = "(C)odeCompanion (A)ctions" },
+      { "<leader>cc", "<cmd>CodeCompanionChat Toggle<cr>", mode = { "n", "v" }, desc = "(C)odeCompanion (C)hat" },
+      { "<leader>cs", "<cmd>CodeCompanionChat Add<cr>", mode = "v", desc = "(C)odeCompanion (S)end to chat" },
     },
     config = function()
       load_openai_key()
@@ -67,11 +73,6 @@ return {
           },
         },
       })
-
-      -- set up keymaps
-      vim.keymap.set({ "n", "v" }, "<leader>ca", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true, desc = "(C)odeCompanion (A)ctions" })
-      vim.keymap.set({ "n", "v" }, "<leader>cc", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true, desc = "(C)odeCompanion (C)hat" })
-      vim.keymap.set("v", "<leader>cs", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true, desc = "(C)odeCompanion (S)end to chat" })
 
       -- Expand 'cc' into 'CodeCompanion' in the command line
       vim.cmd([[cab cc CodeCompanion]])

@@ -106,7 +106,7 @@ If needed, run the uninstall command with `sudo`.
 - `<leader>ax` opens Sidekick with Codex CLI.
 - `<leader>ag` opens Sidekick with Gemini CLI.
 - `<leader>at` toggles Sidekick CLI window.
-- `<leader>aC` closes Sidekick CLI window.
+- `<leader>aq` quites Sidekick CLI window.
 
 ## Install treesitter parsers for `R.nvim`
 The recommended way is to simply use the `nvim-treesitter` plugin.
