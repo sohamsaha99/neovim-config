@@ -65,7 +65,6 @@ If a plugin is not working and cannot be installed, I suggest you to look at the
 ## Setup AI coding plugins on a new machine
 The AI config now includes:
 - [lua/plugins/AI_coding/init.lua](./lua/plugins/AI_coding/init.lua), which configures both `codecompanion.nvim` and `sidekick.nvim` (Codex CLI + Gemini CLI).
-`codecompanion.nvim` is setup to work with OpenAI API in http mode, Codex and Gemini CLI in ACP mode.
 
 In `sidekick.nvim`, NES is explicitly disabled to keep the setup minimal.
 
@@ -107,7 +106,7 @@ If needed, run the uninstall command with `sudo`.
 - `<leader>ax` opens Sidekick with Codex CLI.
 - `<leader>ag` opens Sidekick with Gemini CLI.
 - `<leader>at` toggles Sidekick CLI window.
-- `<leader>aq` quits Sidekick CLI window.
+- `<leader>aC` closes Sidekick CLI window.
 
 ## Install treesitter parsers for `R.nvim`
 The recommended way is to simply use the `nvim-treesitter` plugin.
