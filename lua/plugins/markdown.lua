@@ -1,14 +1,3 @@
--- Use built-in Tree-sitter: start it for Markdown buffers explicitly.
--- This avoids needing nvim-treesitter while satisfying the plugin's health check.
--- When opening a Markdown file, enable Tree-sitter highlighting
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "markdown", "md", "rmd" },
-  -- once = true,
-  callback = function(event)
-    vim.treesitter.start(event.buf, "markdown")
-  end,
-})
-
 return {
   {
     'renerocksai/telekasten.nvim',
@@ -49,7 +38,7 @@ return {
       "codecompanion"
     },
     dependencies = { 
-      -- 'nvim-treesitter/nvim-treesitter',
+      'nvim-treesitter/nvim-treesitter',
       'nvim-mini/mini.nvim'
     }, -- if you use the mini.nvim suite
     ---@module 'render-markdown'

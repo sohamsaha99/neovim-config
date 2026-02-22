@@ -111,7 +111,11 @@ If needed, run the uninstall command with `sudo`.
 ## Install treesitter parsers for `R.nvim`
 The recommended way is to simply use the `nvim-treesitter` plugin.
 However, there are some conflict issues if both `nvim-treesitter` and `VimTeX` plugins are enabled.
-So I have manually installed the treesitter parser for R and put it in an appropriate structure.
+The conflict is specifically about Tree-sitter *highlighting* for LaTeX. The simplest fix is to
+disable Tree-sitter highlighting for `latex`, and let VimTeX handle LaTeX syntax/conceal.
+
+If you don't want to use `nvim-treesitter`, you can still manually install the treesitter parser
+for R and put it in an appropriate structure.
 I followed this procedure:
 ```shell
 git clone https://github.com/r-lib/tree-sitter-r.git
@@ -122,3 +126,4 @@ This will give you a `libtree-sitter-r.so` file.
 Rename it to `r.so` and put it under `nvim/parser` directory.
 Additionally, grab the `.scm` files under `queries/` directory and put them in `nvim/queries/r/`.
 Then you can remove the directory `tree-sitter-r`.
+

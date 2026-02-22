@@ -16,7 +16,7 @@ return {
     opts = {},
     dependencies = {
       "nvim-lua/plenary.nvim",
-      -- "nvim-treesitter/nvim-treesitter",
+      "nvim-treesitter/nvim-treesitter",
     },
     keys = {
       { "<leader>ca", "<cmd>CodeCompanionActions<cr>", mode = { "n", "v" }, desc = "(C)odeCompanion (A)ctions" },
@@ -66,10 +66,10 @@ return {
             adapter = "codex", -- "openai"
           },
           inline = {
-            adapter = "codex", -- "openai"
+            adapter = "openai", -- "openai"
           },
           cmd = {
-            adapter = "codex", -- "openai"
+            adapter = "openai", -- "openai"
           },
         },
       })
