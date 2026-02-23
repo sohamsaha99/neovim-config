@@ -1,12 +1,11 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
     lazy = false,
     build = ":TSUpdate",
-    -- event = { "BufReadPost", "BufNewFile" },
-    opts = {
-      -- Keep this list small and focused; add more languages as needed.
-      ensure_installed = {
+    config = function()
+      local langs = {
         "lua",
         "vim",
         "vimdoc",
@@ -14,12 +13,19 @@ return {
         "markdown",
         "markdown_inline",
         "r",
-        "yaml",
         "rnoweb",
-      },
-      -- VimTeX is strongly recommended for LaTeX highlighting; avoid TS LaTeX.
-      ignore_install = { "latex" },
-    },
-  },
+        "yaml",
+        -- do not add "latex" in this list. VimTeX does not work with treesitter
+      }
+      require("nvim-treesitter").install(langs)
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = langs,
+        callback = function()
+          vim.treesitter.start()
+        end,
+      })
+    end,
+  }
 }
 
