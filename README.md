@@ -19,13 +19,12 @@ nvim/
   │       │   ├── init.lua
   │       │   └── status.lua
   │       ├── completion.lua
-  │       ├── file_explorer.lua
   │       ├── init.lua
   │       ├── latex.lua
   │       ├── markdown.lua
   │       ├── r_language.lua
   │       ├── statusline.lua
-  │       ├── telescope.lua
+  │       ├── snacks.lua
   │       └── treesitter.lua
   └── snippets
       ├── cpp.json
@@ -56,18 +55,18 @@ Some plugins require external dependencies.
 I have tried to list some of them.
 The list is not complete.
 - Common tools like `curl`, `git`, `unzip`, `wget`, `tar` with recent versions.
-- A nerd font is required for markdown rendering and telescope plugin.
+- A nerd font is required for markdown rendering and many other plugins / file explorers.
 I am using the `JetBrainsMono Nerd Font Mono` font.
 - `LuaRocks` may be required for installation of some plugins using `lazy.nvim`.
 - A `C` compiler and `make` is required to compile parsers and the autocompletion from `clangd`.
-- `ripgrep` is required for the telescope plugin.
+- `ripgrep` is required for the grep search in pickers.
 - Local LaTeX installation required for the VimTeX plugin.
 - `tree-sitter-cli` may not be required, first check if the plugin works without additional dependencies. However, the parsers may have to installed with :TSInstall manually.
 If a plugin is not working and cannot be installed, I suggest you to look at the specific repository to find the dependencies.
 
 ## Setup AI coding plugins on a new machine
 The AI config now includes:
-- [lua/plugins/AI_coding/init.lua](./lua/plugins/AI_coding/init.lua), which configures both `codecompanion.nvim` and `sidekick.nvim` (Codex CLI + Gemini CLI).
+- [lua/plugins/AI_coding/init.lua](./lua/plugins/AI_coding/init.lua), which configures both `codecompanion.nvim` and `sidekick.nvim` (Codex CLI + Gemini CLI + OpenCode CLI).
 
 In `sidekick.nvim`, NES is explicitly disabled to keep the setup minimal.
 
@@ -106,8 +105,8 @@ If needed, run the uninstall command with `sudo`.
 5. Restart Neovim and sync plugins (`:Lazy sync`).
 
 6. Sidekick keymaps:
-- `<leader>ax` opens Sidekick with Codex CLI.
+- `<leader>ac` opens Sidekick with Codex CLI.
 - `<leader>ag` opens Sidekick with Gemini CLI.
+- `<leader>ao` opens Sidekick with OpenCode CLI.
 - `<leader>at` toggles Sidekick CLI window.
-- `<leader>aq` quites Sidekick CLI window.
-
+- `<leader>aq` quits Sidekick CLI window.

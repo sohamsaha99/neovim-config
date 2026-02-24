@@ -27,8 +27,18 @@ return {
       load_openai_key()
 
       require("codecompanion").setup({
+        prompt_library = {
+          markdown = {
+            dirs = {
+              vim.fn.getcwd() .. "/.prompts/skills/", -- Can be relative
+            },
+          },
+        },
         adapters = {
           http = {
+            opts = {
+              show_presets = false,
+            },
             -- Set up OpenAI API
             openai = function()
               return require("codecompanion.adapters").extend("openai", {
@@ -45,6 +55,9 @@ return {
           },
           -- Set up Codex CLI Integration with codex-acp (executable in ~/.local/bin)
           acp = {
+            opts = {
+              show_presets = false,
+            },
             codex = function()
               return require("codecompanion.adapters").extend("codex", {
                 defaults = {
@@ -59,11 +72,14 @@ return {
                 },
               })
             end,
+            opencode = function()
+              return require("codecompanion.adapters").extend("opencode", {})
+            end,
           },
         },
         interactions = {
           chat = {
-            adapter = "codex", -- "openai"
+            adapter = "openai", -- "codex"
           },
           inline = {
             adapter = "openai", -- "openai"
@@ -85,10 +101,15 @@ return {
         enabled = false,
       },
       cli = {
-        picker = "telescope",
+        picker = "snacks",
         tools = {
           gemini = { cmd = { "gemini" } },
           codex = { cmd = { "codex" } },
+          opencode = {
+            cmd = { "opencode" },
+            -- HACK: https://github.com/sst/opencode/issues/445
+            env = { OPENCODE_THEME = "system" },
+          },
         },
       },
     },
@@ -108,6 +129,13 @@ return {
         desc = "(A)I (G)emini CLI",
       },
       {
+        "<leader>ao",
+        function()
+          require("sidekick.cli").show({ name = "opencode" })
+        end,
+        desc = "(A)I (O)pencode CLI",
+      },
+      {
         "<leader>at",
         function()
           require("sidekick.cli").toggle()
@@ -123,93 +151,4 @@ return {
       },
     },
   },
-
-  -- {
-  --   "yetone/avante.nvim",
-  --   event = "VeryLazy",
-  --   build = "make",
-  --   version = false,
-  --   ---@module 'avante'
-  --   ---@type avante.Config
-  --   opts = {
-  --     instructions_file = "avante.md",
-  --     provider = "openai",
-  --     auto_suggestions_provider = "openai",
-  --     selector = {
-  --       provider = "telescope",
-  --     },
-  --     providers = {
-  --       openai = {
-  --         model = "gpt-5",
-  --       },
-  --     },
-  --   },
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",
-  --     "MunifTanjim/nui.nvim",
-  --     "nvim-telescope/telescope.nvim",
-  --     "saghen/blink.compat",
-  --     "nvim-tree/nvim-web-devicons",
-  --     {
-  --       "saghen/blink.cmp",
-  --       opts = function(_, opts)
-  --         opts.sources = opts.sources or {}
-  --
-  --         -- 1) Add to sources.default
-  --         opts.sources.default = opts.sources.default or {}
-  --         local default = opts.sources.default
-  --
-  --         local function add_unique(list, item)
-  --           for _, v in ipairs(list) do
-  --             if v == item then return end
-  --           end
-  --           table.insert(list, item)
-  --         end
-  --
-  --         add_unique(default, "avante_commands")
-  --         add_unique(default, "avante_mentions")
-  --         add_unique(default, "avante_shortcuts")
-  --         add_unique(default, "avante_files")
-  --
-  --         -- 2) Add providers
-  --         opts.sources.providers = opts.sources.providers or {}
-  --
-  --         opts.sources.providers.avante_commands = {
-  --           name = "avante_commands",
-  --           module = "blink.compat.source",
-  --           score_offset = 90, -- show at a higher priority than lsp
-  --           opts = {},
-  --         }
-  --
-  --         opts.sources.providers.avante_files = {
-  --           name = "avante_files",
-  --           module = "blink.compat.source",
-  --           score_offset = 100, -- show at a higher priority than lsp
-  --           opts = {},
-  --         }
-  --
-  --         opts.sources.providers.avante_mentions = {
-  --           name = "avante_mentions",
-  --           module = "blink.compat.source",
-  --           score_offset = 1000, -- show at a higher priority than lsp
-  --           opts = {},
-  --         }
-  --
-  --         opts.sources.providers.avante_shortcuts = {
-  --           name = "avante_shortcuts",
-  --           module = "blink.compat.source",
-  --           score_offset = 1000, -- show at a higher priority than lsp
-  --           opts = {},
-  --         }
-  --       end,
-  --     },
-  --   },
-  --   config = function(_, opts)
-  --     load_openai_key()
-  --     require("avante").setup(opts)
-  --
-  --     vim.keymap.set("n", "<leader>at", "<cmd>AvanteToggle<cr>", { noremap = true, silent = true, desc = "(A)I Avan(t)e Toggle" })
-  --     vim.keymap.set({ "n", "v" }, "<leader>aq", "<cmd>AvanteAsk<cr>", { noremap = true, silent = true, desc = "(A)I As(k)" })
-  --   end,
-  -- },
 }
