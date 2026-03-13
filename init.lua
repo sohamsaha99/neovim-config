@@ -66,6 +66,6 @@ vim.api.nvim_create_autocmd("FileType", {
 require('config.lazy')
 -- require('config.netrw')
 
-vim.cmd.colorscheme "catppuccin"
+vim.cmd.colorscheme "catppuccin-nvim"
 -- catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha
 
